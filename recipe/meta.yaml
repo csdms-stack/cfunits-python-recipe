@@ -1,0 +1,30 @@
+{% set name = "cfunits-python" %}
+{% set version = "1.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  git_url: https://bitbucket.org/cfpython/{{ name }}
+  git_rev: v{{ version }}
+
+requirements:
+  build:
+    - python >=2.7,<3
+    - udunits2
+    - netcdf4
+  run:
+    - python
+    - udunits2
+    - netcdf4
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+about:
+  home: https://bitbucket.org/cfpython/cfunits-python
+  license: MIT License
+  summary: A Python interface to UNIDATA's Udunits-2 package with CF extensions.
+
