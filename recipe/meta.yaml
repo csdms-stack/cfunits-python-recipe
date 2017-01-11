@@ -13,11 +13,11 @@ requirements:
   build:
     - python >=2.7,<3
     - udunits2
-    - netcdf4
+    - netcdf4 <=1.2.4
   run:
     - python
     - udunits2
-    - netcdf4
+    - netcdf4 <=1.2.4
 
 build:
   number: 0
