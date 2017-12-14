@@ -8,7 +8,7 @@ env:
   global:
   - CONDA_PREFIX=$HOME/miniconda
   - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda3-latest"
-  - secure: A05kCsni0KBcVpyrmKGS0ALexEyoLQRRLIk4sAe9Qq0CQaaOew5NGoLNh236l4BjGhO9dXWLISUtaypA6PD0HUIXyK8Z165J6Wpff2Yz1ktqjmXe5zre7hksCBpDNwBmIHn9U4VNXT0EB8ae19wvm1rkTd7t+nmvPB2+LSpwXzHrBOER+tUBQ1iLqu8jkjc8UW0QMf/UAea/YCHMwIxJbDjjeW06Xl/mX1dSLUF83oasn0ALEd366Fd7b5aAQcOevZdw+vlngeBHPdUjsdXsYnLoVOnns1eNRLY0bQrcjz1aSwFGIHUxZNMRH7N1rGFRKtSVHC4tsM0BeVJOSnN2bQ+faH0WNBoP/LxXEcHdSOciK7pCSAsbYA/pUQqMx0MbgowWNbp9lcZqm5uc/GEzdijmcvcohxi9DXsCVyTvRMyQOVtwUzCV5zIwP3kv/tc4N6FzqpvMgDRD+u+SiHAGfy4a7S+pGaWrA6Rk/hzICBxoAue0qRMP1mL6xe9k1NB/33gKp8k5p3ea6lYU0dx7y283wW26HSBSoONuZWUWS2foXZdD7TTi6bs1mdIjj3DJsJ1A7Sb/O+JzMHHq1K885O9TzsANJNdsMXEr8eYN54LjHrwVr/zMvpX0m5gJmzn14CNt32KHBZpU49XfacvUxJGRn4o7hXNn8ZSdVW/15yg=
+  - secure: "HMCwKKWwMyiad0mKnTIdga9BDARLwIeYZ6R79/e6SINKF9JWlJ8fhdxrjqurBCSWnOIRnbh2wTK4Ovef3U7+K/DJCDMEw9Ymb4JO6DaTx9jQ9xoPKpQPcxdmbPMVGzN5vnCu7+WOkJ59z73QPZawZ/tDcfJpE6dtEXCpes2Krs6nR5u2EW55K/aOG64niPSAiKp+1kvPQ4DcMT8w+bYY2IBKf/+aeICfMmchSCFQqmysJ4KxH9/3BalDNrsELFGm1IQiy9FUeWOjFvZpD4Mmv4haOAE0LrctGwQdTn+Jhybp/JwCEjDjdUmXNFlko09k1AU7Z6VQSSV6w6k8+DVplBL+R6lUioGJQkqzJGzsqxS+uyH37e7gmumWNykMfbczjRoJxmdzAAw0r5YoNs4zVXb0qiY+zFNOO9CJa9dhPQ5mh5axRNj8O0zgl5I4cedkrlMzw2Ccfk2BAAFbvieVHePK6syKHgwmbMbeCm8NU+iIY9FGTAG4bx8heaPc0dX2nmHKYBWs7krkFXqPnB3V/QFr+eaOGHqYXGcFgmXSCHASLeR/h2/NMMCjX1EbYMx+eJk3Ohvu4Gr2KCE7xodcScl+jMH2TfN6eVmNkIymJ8mbDyWJcvXW5CRIYq/6FYnfpK5zxOLs07JyejFWC+KrF8Sarueqz/HR0BHNq00sx/g="
 sudo: false
 before_install:
 - |
@@ -32,9 +32,7 @@ install:
 - conda install python=$TRAVIS_PYTHON_VERSION
 - conda install -q conda-build anaconda-client coverage sphinx
 script:
-- conda build ./recipe -c csdms-stack -c conda-forge
+- conda build ./recipe -c csdms-stack -c defaults -c conda-forge --old-build-string
 after_success:
-- curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py
-  > $HOME/anaconda_upload.py
-- echo $ANACONDA_TOKEN | python $HOME/anaconda_upload.py ./recipe --channel=main --org=csdms-stack
-  --token=-
+- curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py > $HOME/anaconda_upload.py
+- echo $ANACONDA_TOKEN | python $HOME/anaconda_upload.py ./recipe --channel=main --org=csdms-stack --old-build-string --token=-
