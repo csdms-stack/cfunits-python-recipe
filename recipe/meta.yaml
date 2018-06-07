@@ -1,17 +1,17 @@
 {% set name = "cfunits-python" %}
-{% set version = "1.3.3" %}
+{% set version = "1.5.1" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.python.org/packages/48/c2/0765e05f9d8b2d255bb9e1d591cc73d16d23aca402f2757448fc61fb022f/cfunits-1.3.3.tar.gz
-  md5: 5abbe561ba9d583500b2f955c3036850
+  git_url: https://bitbucket.org/mcflugen/cfunits-python
+  git_branch: next
 
 requirements:
   build:
-    - python >=2.7,<3
+    - python
     - udunits2
     - netcdf4
   run:
@@ -26,9 +26,14 @@ build:
 test:
   imports:
     - cfunits
+  source_files:
+    - test/
+  commands:
+    - python test/run_tests.py
 
 about:
   home: https://bitbucket.org/cfpython/cfunits-python
-  license: MIT License
-  summary: A Python interface to UNIDATA's Udunits-2 package with CF extensions.
-
+  license: MIT
+  license_file: LICENSE
+  summary: A python interface to UNIDATA's Udunits-2 package with CF extensions
+  dev_url: https://bitbucket.org/cfpython/cfunits-python
